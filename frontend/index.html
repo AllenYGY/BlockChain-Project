@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Citation System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏导航 -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-book-reader"></i>
+                <span>Citation System</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-page="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li data-page="authors">
+                    <i class="fas fa-users"></i>
+                    <span>Authors</span>
+                </li>
+                <li data-page="papers">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Papers</span>
+                </li>
+                <li data-page="citations">
+                    <i class="fas fa-link"></i>
+                    <span>Citations</span>
+                </li>
+                <li data-page="tokens">
+                    <i class="fas fa-coins"></i>
+                    <span>Tokens</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 顶部栏 -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Guest</span>
+                    <button id="connectWallet" class="btn-primary">
+                        <i class="fas fa-wallet"></i>
+                        Connect Wallet
+                    </button>
+                </div>
+            </header>
+
+            <!-- 仪表盘页面 -->
+            <section id="dashboard" class="page active">
+                <h2>Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="stat-info">
+                            <h3>Total Papers</h3>
+                            <p id="totalPapers">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-link"></i>
+                        <div class="stat-info">
+                            <h3>Total Citations</h3>
+                            <p id="totalCitations">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <h3>Total Authors</h3>
+                            <p id="totalAuthors">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-coins"></i>
+                        <div class="stat-info">
+                            <h3>Total Tokens</h3>
+                            <p id="totalTokens">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Citation Network</h3>
+                        <div id="citationNetwork"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 作者页面 -->
+            <section id="authors" class="page">
+                <div class="page-header">
+                    <h2>Authors</h2>
+                    <button id="createAuthorBtn" class="btn-primary">
+                        <i class="fas fa-plus"></i>
+                        New Author
+                    </button>
+                </div>
+                <div class="authors-grid" id="authorsGrid">
+                    <!-- 作者卡片将通过JavaScript动态添加 -->
+                </div>
+            </section>
+
+            <!-- 论文页面 -->
+            <section id="papers" class="page">
+                <div class="page-header">
+                    <h2>Papers</h2>
+                    <button id="createPaperBtn" class="btn-primary">
+                        <i class="fas fa-plus"></i>
+                        New Paper
+                    </button>
+                </div>
+                <div class="papers-list" id="papersList">
+                    <!-- 论文列表将通过JavaScript动态添加 -->
+                </div>
+            </section>
+
+            <!-- 引用页面 -->
+            <section id="citations" class="page">
+                <div class="page-header">
+                    <h2>Citations</h2>
+                    <button id="createCitationBtn" class="btn-primary">
+                        <i class="fas fa-plus"></i>
+                        New Citation
+                    </button>
+                </div>
+                <div class="citations-list" id="citationsList">
+                    <!-- 引用列表将通过JavaScript动态添加 -->
+                </div>
+            </section>
+
+            <!-- 代币页面 -->
+            <section id="tokens" class="page">
+                <div class="page-header">
+                    <h2>Tokens</h2>
+                    <button id="burnTokensBtn" class="btn-danger">
+                        <i class="fas fa-fire"></i>
+                        Burn Tokens
+                    </button>
+                </div>
+                <div class="tokens-info">
+                    <div class="token-balance-card">
+                        <h3>Your Balance</h3>
+                        <p id="userBalance">0.0</p>
+                    </div>
+                    <div class="transactions-list" id="transactionsList">
+                        <!-- 交易历史将通过JavaScript动态添加 -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 模态框 -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入JavaScript文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 
